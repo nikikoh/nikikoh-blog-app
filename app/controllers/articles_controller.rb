@@ -1,53 +1,50 @@
 class ArticlesController < ApplicationController
+  before_action :set_article, only: %i[edit update show] # paramsの自動化
 
-    before_action :set_article, only: [:edit, :update, :show] #paramsの自動化
+  def index
+    @articles = Article.all
+  end
 
-    def index
-        @articles = Article.all
+  def show; end
+
+  def new
+    @article = Article.new
+  end
+
+  def create
+    @article = Article.new(article_params)
+    if @article.save
+      redirect_to article_path(@article), notice: '保存できたよ'
+    else
+      flash.now[:error] = '保存に失敗しました'
+      render :new
     end
+  end
 
-    def show
-    end
+  def edit; end
 
-    def new
-        @article = Article.new
+  def update
+    if @article.update(article_params)
+      redirect_to article_path(@article), notice: '更新できました'
+    else
+      flash.now[:error] = '更新できませんでした'
+      render :edit
     end
+  end
 
-    def create
-        @article = Article.new(article_params)
-        if @article.save
-            redirect_to article_path(@article), notice: '保存できたよ'
-        else
-            flash.now[:error] = "保存に失敗しました"
-            render :new
-        end
-    end
+  def destroy
+    article = Article.find(params[:id])
+    article.destroy!
+    redirect_to root_path, notice: '削除できました'
+  end
 
-    def edit
-    end
+  private
 
-    def update
-        if @article.update(article_params)
-            redirect_to article_path(@article), notice: '更新できました'
-            else
-            flash.now[:error] = '更新できませんでした'
-            render :edit
-        end
-    end
+  def article_params
+    params.require(:article).permit(:title, :content)
+  end
 
-    def destroy
-        article = Article.find(params[:id])
-        article.destroy!
-        redirect_to root_path, notice: '削除できました'
-    end
-
-    private
-    def article_params
-        params.require(:article).permit(:title, :content)
-    end
-
-    def set_article #以下のコードをインスタンス変数にする
-        @article = Article.find(params[:id])
-    end
-    
+  def set_article # 以下のコードをインスタンス変数にする
+    @article = Article.find(params[:id])
+  end
 end
