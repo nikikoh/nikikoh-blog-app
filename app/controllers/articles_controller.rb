@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: %i[edit update show] # paramsの自動化
+  before_action :set_article, only: [:edit, :update, :show] # paramsの自動化
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @articles = Article.all
