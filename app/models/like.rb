@@ -14,6 +14,6 @@
 #  index_likes_on_user_id     (user_id)
 #
 class Like < ApplicationRecord
-    belongs_to :user
-    belongs_to :article
+  belongs_to :user
+  belongs_to :article
 end

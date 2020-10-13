@@ -20,7 +20,8 @@ class ProfilesController < ApplicationController
     end
   end
 
-private
+  private
+
   def profile_params
     params.require(:profile).permit(
       :nickname,

@@ -23,6 +23,7 @@ class Profile < ApplicationRecord
 
   def age
     return '不明' unless birthday.present?
+
     years = Time.zone.now.year - birthday.year
     days = Time.zone.now.yday - birthday.yday
 
