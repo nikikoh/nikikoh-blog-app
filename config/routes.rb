@@ -6,8 +6,9 @@ Rails.application.routes.draw do
   resources :articles do
     resources :comments, only: %i[new create]
 
-    resource :like, only: [:create, :destroy]
+    resource :like, only: %i[create destroy]
   end
 
   resource :profile, only: %i[edit update show]
+  resources :favorites, only: [:index]
 end
