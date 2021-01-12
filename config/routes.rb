@@ -9,6 +9,11 @@ Rails.application.routes.draw do
     resource :like, only: %i[create destroy]
   end
 
-  resource :profile, only: %i[edit update show]
+  resources :accounts, only: [:show] do
+    resources :follows, only: [:create]
+    resources :unfollows, only: [:create]
+  end
+
+  resource  :profile, only: %i[edit update show]
   resources :favorites, only: [:index]
 end
