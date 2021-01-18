@@ -19,14 +19,3 @@ require("channels")
 require("trix")
 require("@rails/actiontext")
 
-import $ from 'jquery'
-import axios from 'axios'
-
-document.addEventListener('turbolinks:load', () => {
-  const dataset = $('#article_show').data()
-  const articleId = dataset.articleId
-  axios.get('/articles/${articleId}/like')
-  .then((response) => {
-    console.log(response)
-  })
-})
